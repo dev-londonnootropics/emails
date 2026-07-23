@@ -1,0 +1,456 @@
+{% if fulfillment.item_count == item_count %} 
+  {% capture email_title %}Your order is out for delivery{% endcapture %}
+  {% capture email_body %}Your order is out for delivery. Track your shipment to see the delivery status.{% endcapture %}
+{% elsif fulfillment.item_count > 1 %} 
+  {% if fulfillment_status == 'fulfilled' %}
+    {% capture email_title %}The last items in your order are out for delivery{% endcapture %}
+    {% capture email_body %}The last items in your order are out for delivery. Track your shipment to see the delivery status.{% endcapture %}
+  {% else %}
+    {% capture email_title %}Some items in your order are out for delivery{% endcapture %}
+    {% capture email_body %}Some items in your order are out for delivery. Track your shipment to see the delivery status.{% endcapture %}
+  {% endif %}
+{% else %} 
+  {% if fulfillment_status == 'fulfilled' %}
+    {% capture email_title %}The last item in your order is out for delivery{% endcapture %}
+    {% capture email_body %}The last item in your order is out for delivery. Track your shipment to see the delivery status.{% endcapture %}
+  {% else %}
+    {% capture email_title %}One item in your order is out for delivery{% endcapture %}
+    {% capture email_body %}One item in your order is out for delivery. Track your shipment to see the delivery status.{% endcapture %}
+  {% endif %}
+{% endif %}
+
+
+{% capture email_emphasis %}Estimated delivery date: <strong>{{fulfillment.estimated_delivery_at | date: format: 'date'}}</strong>{% endcapture %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <title>{{ email_title }}</title>
+  <style data-shopify="">
+    
+  @font-face {
+    font-family: "ABC Gramercy";
+    src: url(//londonnootropics.com/cdn/shop/t/65/assets/ABCGramercy-Book.woff?v=64752516815934044661731407032) format("woff"),
+    url(//londonnootropics.com/cdn/shop/t/65/assets/ABCGramercy-Book.woff2?v=120962658477511410001731407034) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+    p,
+    del,
+    td {
+    font-family: "ABC Gramercy";
+    color: #3A3A3A !important;
+    font-weight: 400 !important;
+}
+    
+  @font-face {
+    font-family: "Soehne Breit";
+    src: url(//londonnootropics.com/cdn/shop/t/65/assets/soehne-breit-dreiviertelfett.woff2?v=34998399807108532631731407035) format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Soehne Breit";
+    src: url(//londonnootropics.com/cdn/shop/t/65/assets/soehne-breit-halbfett.woff2?v=123037843758697194421731407034) format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    strong,
+    span {
+  font-family: "Soehne Breit";
+  color: #3A3A3A;
+    }
+
+  :root {
+    --font-gramercy: "ABC Gramercy", "Lucida Sans", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    --font-soehne: "Soehne Breit", 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
+    --font-heading-family: var(--font-gramercy);
+
+    --font-body-scale: 1;
+    --font-heading-scale: 1;
+
+    --color-background-body: #fffdf8;
+    --color-background-media: #e5e5e5;
+
+    --color-headings: #000;
+    --color-paragraphs: #000;
+
+    --color-solid-button: #1d1d1d;
+    --color-solid-button-background: #c699c3;
+
+    --color-solid-button-alt: #c699c3;
+    --color-solid-button-background-alt: #1d1d1d;
+
+    --color-outline-button: #c699c3;
+    --color-outline-button-hover: #fff;
+    --color-outline-button-border: #c699c3;
+
+    --color-red: #ff2424;
+    --color-background-primary: #000;
+    --color-background-secondary: #fff;
+    --color-background-accent: #e5e5e5;
+    --color-subdued: #6e6151;
+    --color-border: #c6c6c6;--page-width: 1440px;
+
+    --spacing-grid-col: 3.2rem;
+    --spacing-grid-row: 7.2rem;
+    --spacing-grid-col-mobile: 2.4rem;
+    --spacing-grid-row-mobile: 3.8rem;
+
+    --duration-short: 100ms;
+    --duration-default: 300ms;
+    --duration-long: 500ms;
+
+    --z-header: 400;
+    --z-modals: 800;
+  }</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/baskerville_no_2/baskervilleno2_n4.58c0ec927a99385b0402747b6c157538f4cdc10c.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=240378eec5b8d98e7eb905b98af82c8047b0493ed8de2c7fb2f7c79ebea6d6d3" crossorigin="">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/baskerville_no_2/baskervilleno2_n7.501d0f428fd577e1d91e4e89fce6e8f5a00ac5f6.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=f9470853ce8a5aed15bf5d3952f98994dbf6f269ee6a27f0c1d3f029e8ee1a6a" crossorigin="">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/prompt/prompt_n4.a0d8d0b044775ceddc106ae236fbbcc8363bb3fa.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=cb8a6fcfe751d2cd0765eaa07f6a33d5f7a9037088c19c4a8d17bb4a7f7cd5fb" crossorigin="">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/prompt/prompt_n7.fc3862c8bbb0ff06bba7f3afbfb5dad83225f43a.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=f3dff3dc2a7e05c0af80596390174ffc46c28e4c1dce047d50ac62e2d5059420" crossorigin="">
+  <style>
+    .button__cell { background: {{ shop.email_accent_color }}; }
+    a, a:hover, a:active, a:visited { color: {{ shop.email_accent_color }}; }
+  </style>
+</head>
+
+  <body>
+    <table class="body">
+      <tr>
+        <td>
+          <table class="header row">
+  <tr>
+    <td class="header__cell">
+      <center>
+
+        <table class="container">
+          <tr>
+            <td>
+
+              <table class="row">
+                <tr>
+                  <td class="shop-name__cell">
+                    {%- if shop.email_logo_url %}
+                      <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+                    {%- else %}
+                      <h1 class="shop-name__text">
+                        <a href="{{shop.url}}">{{ shop.name }}</a>
+                      </h1>
+                    {%- endif %}
+                  </td>
+
+                    <td>
+                      <table class="order-po-number__container">
+                        <tr>
+                          <td class="order-number__cell">
+                            <span class="order-number__text">
+                              Order {{ order_name }}
+                            </span>
+                          </td>
+                        </tr>
+                        {%- if po_number %}
+                            <tr>
+                              <td class="po-number__cell">
+                                <span class="po-number__text">
+                                  PO number #{{ po_number }}
+                                </span>
+                              </td>
+                            </tr>
+                        {%- endif %}
+                      </table>
+                    </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </center>
+    </td>
+  </tr>
+</table>
+
+          <table class="row content">
+  <tr>
+    <td class="content__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              
+            <h2>{{ email_title }}</h2>
+            <p>{{ email_body }}</p>
+             {% if fulfillment.estimated_delivery_at %}
+              <p>{{ email_emphasis }}</p>
+            {% endif %}
+            {% if order_status_url %}
+              <table class="row actions">
+  <tr>
+    <td class="empty-line">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="actions__cell">
+      <table class="button main-action-cell">
+        <tr>
+          <td style="border-radius: 0px !important;" bgcolor="#C699C3" class="button__cell"><a style="font-family: 'Soehne Breit', sans-serif; border-radius: 0px !important; color: #000; padding: 12px 30px; font-size: 14px" href="{{ order_status_url }}" class="button__text">TRACK MY SHIPMENT</a></td>
+        </tr>
+      </table>
+      {% if shop.url %}
+    <table class="link secondary-action-cell">
+      <tr>
+        <td class="link__cell">or <a href="{{ shop.url }}">Visit our store</a></td>
+      </tr>
+    </table>
+{% endif %}
+
+    </td>
+  </tr>
+</table>
+
+            {% else %}
+              {% if shop.url %}
+    <table class="row actions">
+      <tr>
+        <td class="actions__cell">
+          <table class="button main-action-cell">
+            <tr>
+              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+{% endif %}
+
+            {% endif %}
+
+            {% if fulfillment.tracking_numbers.size > 0 %}
+  <p class="disclaimer__subtext">
+    <br/>
+    {% if fulfillment.tracking_numbers.size == 1 and fulfillment.tracking_company and fulfillment.tracking_url %}
+      {{ fulfillment.tracking_company }} tracking number: <a href="{{ fulfillment.tracking_url }}">{{ fulfillment.tracking_numbers.first }}</a>
+    {% elsif fulfillment.tracking_numbers.size == 1 %}
+      Tracking number: {{ fulfillment.tracking_numbers.first }}
+    {% else %}
+      {{ fulfillment.tracking_company }} tracking numbers:<br />
+      {% for tracking_number in fulfillment.tracking_numbers %}
+        {% if fulfillment.tracking_urls[forloop.index0] %}
+          <a href="{{ fulfillment.tracking_urls[forloop.index0] }}">
+            {{ tracking_number }}
+          </a>
+        {% else %}
+            {{ tracking_number }}
+        {% endif %}
+        <br/>
+      {% endfor %}
+    {% endif %}
+  </p>
+{% endif %}
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+          <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Items in this shipment</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+              
+          <table class="row">
+  {% for line in fulfillment.fulfillment_line_items %}
+    
+<tr class="order-list__item">
+  <td class="order-list__item__cell">
+    <table>
+        {% assign expand_bundles = false %}
+      {% if expand_bundles and line.line_item.bundle_parent? %}
+        <td class="order-list__parent-image-cell">
+          {% if line.line_item.image %}
+            <img src="{{ line.line_item | img_url: 'compact_cropped' }}" align="left" width="60" height="60" class="order-list__product-image"/>
+          {% else %}
+            <div class="order-list__no-image-cell">
+              <img src="{{ 'notifications/no-image.png' | shopify_asset_url }}" align="left" width="60" height="60" class="order-list__no-product-image"/>
+            </div>
+          {% endif %}
+        </td>
+      {% else %}
+        <td class="order-list__image-cell">
+          {% if line.line_item.image %}
+            <img src="{{ line.line_item | img_url: 'compact_cropped' }}" align="left" width="60" height="60" class="order-list__product-image"/>
+          {% else %}
+            <div class="order-list__no-image-cell">
+              <img src="{{ 'notifications/no-image.png' | shopify_asset_url }}" align="left" width="60" height="60" class="order-list__no-product-image"/>
+            </div>
+          {% endif %}
+        </td>
+      {% endif %}
+      <td class="order-list__product-description-cell">
+        {% if line.line_item.product.title %}
+          {% assign line_title = line.line_item.product.title %}
+        {% else %}
+          {% assign line_title = line.line_item.title %}
+        {% endif %}
+
+        {% if line.quantity < line.line_item.quantity %}
+          {% capture line_display %}
+            {{ line.quantity }} of {{ line.line_item.quantity }}
+          {% endcapture %}
+        {% else %}
+          {% assign line_display = line.line_item.quantity %}
+        {% endif %}
+
+        <span class="order-list__item-title">{{ line_title }}&nbsp;&times;&nbsp;{{ line_display }}</span><br/>
+
+        {% if line.line_item.variant.title != 'Default Title' and line.line_item.bundle_parent? == false %}
+          <span class="order-list__item-variant">{{ line.line_item.variant.title }}</span><br/>
+        {% elsif line.line_item.variant.title != 'Default Title' and line.line_item.bundle_parent? and expand_bundles == false %}
+          <span class="order-list__item-variant">{{ line.line_item.variant.title }}</span><br/>
+        {% endif %}
+
+        {% if expand_bundles %}
+          {% for component in line.line_item.bundle_components %}
+            <table>
+              <tr class="order-list__item">
+                <td class="order-list__bundle-item">
+                  <table>
+                    <td class="order-list__image-cell">
+                      {% if component.image %}
+                        <img src="{{ component | img_url: 'compact_cropped' }}" align="left" width="40" height="40" class="order-list__product-image"/>
+                      {% else %}
+                        <div class="order-list__no-image-cell small">
+                          <img src="{{ 'notifications/no-image.png' | shopify_asset_url }}" align="left" width="40" height="40" class="order-list__no-product-image small"/>
+                        </div>
+                      {% endif %}
+                    </td>
+
+                    <td class="order-list__product-description-cell">
+                      {% if component.product.title %}
+                        {% assign component_title = component.product.title %}
+                      {% else %}
+                        {% assign component_title = component.title %}
+                      {% endif %}
+
+                      {% assign component_display = component.quantity %}
+
+                      <span class="order-list__item-title">{{ component_title }}&nbsp;&times;&nbsp;{{ component_display }}</span><br>
+
+                      {% if component.variant.title != 'Default Title'%}
+                        <span class="order-list__item-variant">{{ component.variant.title }}</span>
+                      {% endif %}
+                    </td>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          {% endfor %}
+        {% else %}
+          {% for group in line.line_item.groups %}
+            <span class="order-list__item-variant">Part of: {{ group.display_title }}</span><br/>
+          {% endfor %}
+        {% endif %}
+
+
+        {% if line.line_item.selling_plan_allocation %}
+          <span class="order-list__item-variant">{{ line.line_item.selling_plan_allocation.selling_plan.name }}</span><br/>
+        {% endif %}
+
+        {% if line.line_item.refunded_quantity > 0 %}
+          <span class="order-list__item-refunded">Refunded</span>
+        {% endif %}
+
+        {% if line.line_item.discount_allocations %}
+          {% for discount_allocation in line.line_item.discount_allocations %}
+            {% if discount_allocation.discount_application.target_selection != 'all' %}
+            <p>
+              <span class="order-list__item-discount-allocation">
+                <img src="{{ 'notifications/discounttag.png' | shopify_asset_url }}" width="18" height="18" class="discount-tag-icon" />
+                <span>
+                  {{ discount_allocation.discount_application.title | upcase }}
+                  (-{{ discount_allocation.amount | money }})
+                </span>
+              </span>
+            </p>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </td>
+    </table>
+  </td>
+</tr>
+
+  {% endfor %}
+</table>
+
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+
+<table class="row footer">
+  <tr>
+    <td class="footer__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3 style="margin-bottom: 10px">Elevate your day.</h3>
+              <p style="text-align: left" class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a style="color: #c699c3" href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+<img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
+
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+{%- if billing_address.country_code == 'DE' or billing_address.country_code == 'DK' -%}
+  {%- if shop.terms_of_service.body != blank -%}
+    {{ shop.terms_of_service | attach_as_pdf: "Terms of service" }}
+  {%- endif -%}
+
+  {%- if shop.refund_policy.body != blank -%}
+    {{ shop.refund_policy | attach_as_pdf: "Refund policy" }}
+  {%- endif -%}
+{%- endif -%}

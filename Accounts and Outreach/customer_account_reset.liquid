@@ -1,0 +1,226 @@
+{% capture email_title %}Reset your password{% endcapture %}
+{% capture email_body %}Follow this link to reset your customer account password at <a href="{{shop.url}}">{{shop.name}}</a>. If you didn't request a new password, you can safely delete this email.{% endcapture %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <title>{{ email_title }}</title>
+  <style data-shopify="">
+    
+  @font-face {
+    font-family: "ABC Gramercy";
+    src: url(//londonnootropics.com/cdn/shop/t/65/assets/ABCGramercy-Book.woff?v=64752516815934044661731407032) format("woff"),
+    url(//londonnootropics.com/cdn/shop/t/65/assets/ABCGramercy-Book.woff2?v=120962658477511410001731407034) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+    p,
+    del,
+    td {
+    font-family: "ABC Gramercy";
+    color: #3A3A3A !important;
+    font-weight: 400 !important;
+}
+    
+  @font-face {
+    font-family: "Soehne Breit";
+    src: url(//londonnootropics.com/cdn/shop/t/65/assets/soehne-breit-dreiviertelfett.woff2?v=34998399807108532631731407035) format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Soehne Breit";
+    src: url(//londonnootropics.com/cdn/shop/t/65/assets/soehne-breit-halbfett.woff2?v=123037843758697194421731407034) format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    strong,
+    span {
+  font-family: "Soehne Breit";
+  color: #3A3A3A;
+    }
+
+  :root {
+    --font-gramercy: "ABC Gramercy", "Lucida Sans", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    --font-soehne: "Soehne Breit", 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
+    --font-heading-family: var(--font-gramercy);
+
+    --font-body-scale: 1;
+    --font-heading-scale: 1;
+
+    --color-background-body: #fffdf8;
+    --color-background-media: #e5e5e5;
+
+    --color-headings: #000;
+    --color-paragraphs: #000;
+
+    --color-solid-button: #1d1d1d;
+    --color-solid-button-background: #c699c3;
+
+    --color-solid-button-alt: #c699c3;
+    --color-solid-button-background-alt: #1d1d1d;
+
+    --color-outline-button: #c699c3;
+    --color-outline-button-hover: #fff;
+    --color-outline-button-border: #c699c3;
+
+    --color-red: #ff2424;
+    --color-background-primary: #000;
+    --color-background-secondary: #fff;
+    --color-background-accent: #e5e5e5;
+    --color-subdued: #6e6151;
+    --color-border: #c6c6c6;--page-width: 1440px;
+
+    --spacing-grid-col: 3.2rem;
+    --spacing-grid-row: 7.2rem;
+    --spacing-grid-col-mobile: 2.4rem;
+    --spacing-grid-row-mobile: 3.8rem;
+
+    --duration-short: 100ms;
+    --duration-default: 300ms;
+    --duration-long: 500ms;
+
+    --z-header: 400;
+    --z-modals: 800;
+  }</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/baskerville_no_2/baskervilleno2_n4.58c0ec927a99385b0402747b6c157538f4cdc10c.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=240378eec5b8d98e7eb905b98af82c8047b0493ed8de2c7fb2f7c79ebea6d6d3" crossorigin="">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/baskerville_no_2/baskervilleno2_n7.501d0f428fd577e1d91e4e89fce6e8f5a00ac5f6.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=f9470853ce8a5aed15bf5d3952f98994dbf6f269ee6a27f0c1d3f029e8ee1a6a" crossorigin="">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/prompt/prompt_n4.a0d8d0b044775ceddc106ae236fbbcc8363bb3fa.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=cb8a6fcfe751d2cd0765eaa07f6a33d5f7a9037088c19c4a8d17bb4a7f7cd5fb" crossorigin="">
+  <link rel="prefetch" fetchpriority="low" as="font" type="font/woff2" href="https://fonts.shopifycdn.com/prompt/prompt_n7.fc3862c8bbb0ff06bba7f3afbfb5dad83225f43a.woff2?h1=bG9uZG9ubm9vdHJvcGljcy5jb20&amp;hmac=f3dff3dc2a7e05c0af80596390174ffc46c28e4c1dce047d50ac62e2d5059420" crossorigin="">
+  <style>
+    .button__cell { background: {{ shop.email_accent_color }}; }
+    a, a:hover, a:active, a:visited { color: {{ shop.email_accent_color }}; }
+  </style>
+</head>
+
+  <body>
+    <table class="body">
+      <tr>
+        <td>
+          <table class="header row">
+  <tr>
+    <td class="header__cell">
+      <center>
+
+        <table class="container">
+          <tr>
+            <td>
+
+              <table class="row">
+                <tr>
+                  <td class="shop-name__cell">
+                    {%- if shop.email_logo_url %}
+                      <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+                    {%- else %}
+                      <h1 class="shop-name__text">
+                        <a href="{{shop.url}}">{{ shop.name }}</a>
+                      </h1>
+                    {%- endif %}
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </center>
+    </td>
+  </tr>
+</table>
+
+          <table class="row content">
+  <tr>
+    <td class="content__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              
+            <h2>{{ email_title }}</h2>
+             {% if custom_message != blank %}
+              <p>{{ custom_message }}</p>
+            {% else %}
+            <p>{{ email_body }}</p>
+            {% endif %}
+              <table class="row actions">
+  <tr>
+    <td class="empty-line">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="actions__cell">
+      <table class="button main-action-cell">
+        <tr>
+          <td style="border-radius: 0px !important;" bgcolor="#C699C3" class="button__cell"><a style="font-family: 'Soehne Breit', sans-serif; border-radius: 0px !important; color: #000; padding: 12px 30px; font-size: 14px" href="{{ customer.reset_password_url }}" class="button__text">RESET YOUR PASSWORD</a></td>
+        </tr>
+      </table>
+      {% if shop.url %}
+    <table class="link secondary-action-cell">
+      <tr>
+        <td class="link__cell">or <a href="{{ shop.url }}">Visit our store</a></td>
+      </tr>
+    </table>
+{% endif %}
+
+    </td>
+  </tr>
+</table>
+
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+
+<table class="row footer">
+  <tr>
+    <td class="footer__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3 style="margin-bottom: 10px">Elevate your day.</h3>
+              <p style="text-align: left" class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a style="color: #c699c3" href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+<img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
+
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+{%- if billing_address.country_code == 'DE' or billing_address.country_code == 'DK' -%}
+  {%- if shop.terms_of_service.body != blank -%}
+    {{ shop.terms_of_service | attach_as_pdf: "Terms of service" }}
+  {%- endif -%}
+
+  {%- if shop.refund_policy.body != blank -%}
+    {{ shop.refund_policy | attach_as_pdf: "Refund policy" }}
+  {%- endif -%}
+{%- endif -%}

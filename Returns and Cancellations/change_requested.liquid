@@ -38,11 +38,12 @@
                       </h1>
                     {%- endif %}
                   </td>
-
-                    <td{% if buyer_email_rtl == true %} class="order-po-number__cell"{% endif %}>
-                      <table class="order-po-number__container">
+                </tr>
+                <tr>
+                  <td{% if buyer_email_rtl == true %} class="order-po-number__cell"{% endif %}>
+                      <table class="order-po-number__container" style="margin-left: 0;">
                         <tr>
-                          <td class="order-number__cell"{% if buyer_email_rtl == true %} align="left"{% endif %}>
+                          <td class="order-number__cell"{% if buyer_email_rtl == true %} align="left"{% endif %} style="margin-bottom: 20px; margin-top: 0px;">
                             <span class="order-number__text">
                               Order {% if buyer_email_rtl == true %}<span dir="ltr" style="display: inline-block; unicode-bidi: isolate; font-size: inherit;">{% endif %}{{ order.name }}{% if buyer_email_rtl == true %}</span>{% endif %}
                             </span>
@@ -81,7 +82,7 @@
             <td>
               
           {% if requested_edit and return %}
-            <h2>Your request was sent</h2>a
+            <h2>Your request was sent</h2>
             <p class="return-requested__body">Your request is being reviewed by our team. We'll email you as soon as we can 💜</p>
           {% elsif requested_edit %}
             <h2>Your cancellation request was sent</h2>
